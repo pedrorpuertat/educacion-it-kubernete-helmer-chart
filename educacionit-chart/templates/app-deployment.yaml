@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.app.name }}
+  labels:
+    app: {{ .Values.app.name }}
+spec:
+  replicas: {{ .Values.app.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ .Values.app.name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.app.name }}
+    spec:
+      containers:
+        - name: {{ .Values.app.name }}
+          image: {{ .Values.app.image }}
+          ports:
+            - containerPort: {{ .Values.app.port }}
+          env:
+            - name: MONGO_DB_NAME
+              value: {{ .Values.mongodb.database }}
+            - name: MONGO_DB_PASS
+              value: {{ .Values.mongodb.password }}
+            - name: MONGO_DB_URI
+              value: mongodb://{{ .Values.mongodb.serviceName }}:{{ .Values.mongodb.port }}
+            - name: MONGO_DB_USER
+              value: {{ .Values.mongodb.username }}
+            - name: PORT
+              value: "{{ .Values.app.port }}"

@@ -1,0 +1,30 @@
+services:
+  db-server:
+    container_name: educacionit-app-db
+    image: mongo:7.0
+    ports:
+      - "27017:27017"
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=s3cr3t!
+    volumes:
+      - mongodb_data:/data/db
+  app:
+    container_name: educacionit-app
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db-server
+    environment:
+      - PORT=3000
+      - MONGO_DB_URI=mongodb://db-server:27017
+      - MONGO_DB_NAME=app-desafio10
+      - MONGO_DB_USER=root
+      - MONGO_DB_PASS=s3cr3t!
+
+
+volumes:
+  mongodb_data: {}
