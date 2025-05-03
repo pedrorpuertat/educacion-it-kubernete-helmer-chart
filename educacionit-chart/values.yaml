@@ -1,7 +1,7 @@
 app:
   name: educacionit-app
   image: ppuerta1986/educacionit-app
-  replicaCount: 5
+  replicaCount: 3
   port: 3000
 
 mongodb:
