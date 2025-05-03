@@ -1,6 +1,6 @@
 app:
   name: educacionit-app
-  image: edgaregonzalez/educacionit-app:latest
+  image: ppuerta1986/educacionit-app
   replicaCount: 1
   port: 3000
 
